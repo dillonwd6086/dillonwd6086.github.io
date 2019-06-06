@@ -1,14 +1,15 @@
 ---
 layout: post
-title:  "Dotnet Core SPROC Validation Part-1"
+title:  "Dotnet Core SPROC Validation"
 date:   2019-05-12 11:59:11 -0400
 categories: jekyll update
 ---
 
 ## Goals
 
-Create a generic way to express what stored procedures are required for an WebApi to function
-properly.  Once expressed at startup validate that these objects exist in the database.
+Create a structured means to specify what Stored Procedures (SPROCS) are required for a program to work
+properly.  Once we have defined the required SPROCS then at start up create an application that has
+the ability to verify in the database that those objects exist.
 
 ### Requirements 
 
