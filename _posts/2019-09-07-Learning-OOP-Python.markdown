@@ -24,7 +24,7 @@ An instance of a class is a unique object that has it's own state, each instance
 class Person:
     def __init__(self, name):
         self._name = name
-    def print():
+    def print(self):
         print(self._name)
 
 def __name__ == "__main__":
@@ -41,9 +41,9 @@ jeff
 ```
 ## Member Function
 
-A member function is a way to access and manipulate an instance of a class.  Member functions can be declared in Python by having self as the first argument of the function declaration.  This self variable references the state of the class instance.
+A member function is a way to declare an operation on an instance of a class.  When a member function is called on an object, the instance of the object is passed as the first argument, self.
 
-Member variables are useful when you want to manipulate the state of an object and are a gateway to manipulating the internal state of an Object
+Member functions are useful when you want to manipulate the state of an object and are a gateway to manipulating the internal state of an Object
 
 ### Example
 
@@ -53,18 +53,18 @@ class Ball:
         self._loc_x = 0
         self._loc_y = 0
         self._is_hopping = False
-    def ToggleHopping(self):
+    def toggle_hopping(self):
         self._is_hopping = not self._is_hopping
-    def Print(self):
+    def print(self):
         if self._is_hopping:
             print("Im Hopping")
         else:
             print("Still")
 if __name__ == '__main__':
     ball = Ball()
-    ball.Print()
-    ball.ToggleHopping()
-    ball.Print()
+    ball.print()
+    ball.toggle_hopping()
+    ball.print()
 ```
 
 #### Output
@@ -76,54 +76,9 @@ Im Hopping
 
 ### Member Variable
 
-A member variable is some piece of data that belongs to an instance of a class.  This is meant to represent the internal state of the class.  Each instance of a class has separate instances of member variables.  Member variables in Python are always publicly accessible, however it is best practice to prefix any member variable with `_` which signals that the variable should not be modified directly.
+A member variable is some piece of data that belongs to an instance of a class.  This is meant to represent the internal state of the instance.  Each instance of a class has separate instances of member variables.  Member variables in Python are always publicly accessible, however it is best practice to prefix any member variable that should not be modified directly with `_`.
 
-When you want to expose private variables you can do so using member functions or getters/setters.  This provides you a mechanism to control what the state gets changed to inside of the object.
-
-#### Example
-
-```python
-map_width = 400
-map_height = 400
-bad_ball_names = [ 'Wilson', 'Square' ]
-class Ball:
-    def __init__(self, name):
-        self._locX = 0
-        self._locY = 0
-        self.set_name(name)
-        self.Color = "Red"
-    def set_loc_x(self, x):
-        if 0 < x < map_width:
-            self._locX = x
-    def set_loc_y(self, y):
-        if 0 < y < map_height:
-            self._locY = y
-    def set_name(self, name):
-        if name not in bad_ball_names:
-            self._name = name
-    def get_loc_x(self):
-        return self._locX
-    def get_loc_y(self):
-        return self._locY
-    def get_name(self):
-        return self._name
-    def print(self):
-        print("Location ({},{}) Name {}".format(self._locX, self._locY, self._name))
-
-if __name__ == '__main__':
-    b = Ball("Big Ball")
-    b.print()
-```
-
-##### Output
-
-```
-Location (0,0) Name Big Ball
-```
-
-### Getters/Setters The better way
-
-In python 3 they added a better way to do getter and setters.  Here is the same example as above using the @property annotation.  If your version of Python supports this prefer this method.
+When you want to expose "private" variables you can do so using member functions or properties.  This provides you a controlled gateway into the internal state inside of the object.  If your version of Python supports the @property annotation, you should prefer that method.
 
 One thing to note is that the @property annotation is a data descriptor and exposes the variable.  So you must have a @property (getter) before defining a setter.  Using this method there is no way to only have a setter.
 
@@ -188,7 +143,9 @@ Whenever you instantiate a new object in python the __init__ method defined in t
 
 ### Destruction
 
-All objects in Python are reference counted.  This means that whenever you create an object in Python the garbage collector keeps track of how many references to that object are made.  When that reference count hits 0 then the garbage collector releases the memory that the object takes up back to the runtime.
+All objects in Python are reference counted.  This means that whenever you create an object in Python the garbage collector keeps track of how many references to that object are made.  When that reference count hits 0 then the garbage collector releases the memory that the object takes up back to the runtime.  
+
+In CPython the objects are strictly referenced counted meaning that when the ref count hits 0 the object delocated, no garbage collector is needed.
 
 You are allowed to define a Destructor in python if you want to do some clean up when that object goes out of scope.  This is typically not needed but is available to you to use.
 
@@ -257,8 +214,9 @@ The banking system is becoming out of date and is unable to scale to modern requ
     3.  We will want to have a banned users list
 
 Here are the following functions we will want to have
+
     - Create a bank
-    - Print out all banks
+    - print out all banks
     - Select a bank
     - List all accounts in a bank
     - Select account
