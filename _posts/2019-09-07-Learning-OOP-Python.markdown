@@ -78,9 +78,9 @@ Im Hopping
 
 A member variable is some piece of data that belongs to an instance of a class.  This is meant to represent the internal state of the instance.  Each instance of a class has separate instances of member variables.  Member variables in Python are always publicly accessible, however it is best practice to prefix any member variable that should not be modified directly with `_`.
 
-When you want to expose "private" variables you can do so using member functions or properties.  This provides you a controlled gateway into the internal state inside of the object.  If your version of Python supports the @property annotation, you should prefer that method.
+When you want to expose "private" variables you can do so using member functions or properties.  This provides you a controlled gateway into the internal state inside of the object.  If your version of Python supports the @property decorator, you should prefer that method.
 
-One thing to note is that the @property annotation is a data descriptor and exposes the variable.  So you must have a @property (getter) before defining a setter.  Using this method there is no way to only have a setter.
+One thing to note is that the @property decorator is a data descriptor and exposes the variable.  So you must have a @property (getter) before defining a setter.  Using this method there is no way to only have a setter.
 
 #### Example
 
