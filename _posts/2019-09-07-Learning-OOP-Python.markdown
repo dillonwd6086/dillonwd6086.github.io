@@ -39,7 +39,8 @@ if __name__ == "__main__":
 bob
 jeff
 ```
-## Member Function
+
+## Member Functions
 
 A member function is a way to declare an operation on an instance of a class.  When a member function is called on an object, the instance of the object is passed as the first argument, self.
 
@@ -74,7 +75,7 @@ Still
 Im Hopping
 ```
 
-### Member Variable
+## Member Variables
 
 A member variable is some piece of data that belongs to an instance of a class.  This is meant to represent the internal state of the instance.  Each instance of a class has separate instances of member variables.  Member variables in Python are always publicly accessible, however it is best practice to prefix any member variable that should not be modified directly with `_`.
 
@@ -143,13 +144,15 @@ Whenever you instantiate a new object in python the __init__ method defined in t
 
 ### Destruction
 
-All objects in Python are reference counted.  This means that whenever you create an object in Python the garbage collector keeps track of how many references to that object are made.  When that reference count hits 0 then the garbage collector releases the memory that the object takes up back to the runtime.  
+All objects in Python are reference counted.  This means that whenever you create an object in Python the garbage collector keeps track of how many references to that object are made.  When that reference count hits 0 then the garbage collector releases the memory that the object takes up back to the runtime.  In CPython the objects are strictly referenced counted meaning that when the ref count hits 0 the object is delocated, no garbage collector is needed.
 
-In CPython the objects are strictly referenced counted meaning that when the ref count hits 0 the object delocated, no garbage collector is needed.
+You are allowed to define a Destructor in python however this is not the typical method, if this behavior is desired you should use the "with" statement.  The "with" statement allows you to create a "context guard" that will create some object and then when that object is no longer need make sure any resources that the object holds onto are released.  This is useful if that resource is used by other parts of your program or by the operating system and a typical example is a filehandle.
 
-You are allowed to define a Destructor in python if you want to do some clean up when that object goes out of scope.  This is typically not needed but is available to you to use.
+When using the "with" statement when the object is created `__enter__` is called returning the thing
+you want to set up.  When the with statement exits `__exit__` is called on that thing, no matter
+what happens (even execeptions).
 
-#### Example
+#### Example Constructor/Destructor
 
 ```python
 import sys
@@ -194,6 +197,15 @@ Riff Raff
 2
 Riff Raff is getting fired
 ```
+
+#### Example With
+
+```python
+with open("output.txt", "rw") as file:
+    file.write("File opened")
+```
+
+### With
 
 ## Exercise
 
