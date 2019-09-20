@@ -27,7 +27,7 @@ class Person:
     def print(self):
         print(self._name)
 
-def __name__ == "__main__":
+if __name__ == "__main__":
     bob = Person("bob")
     jeff = Person("jeff")
     bob.print()
